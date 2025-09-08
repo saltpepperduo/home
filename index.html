@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Saltpepper — Welcome</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Load the QR Code.js library from CDN -->
+  <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs@gh-pages/qrcode.min.js"></script>
+  <style>
+    /* DISABLE SCROLLING ON THE ENTIRE PAGE */
+    html, body {
+      overflow: hidden;
+      height: 100%;
+    }
+
+    .hero {
+      display: flex;
+      justify-content: center;
+      align-items: center; /* Centers vertically */
+      min-height: 100vh;
+      padding-top: 0; /* Remove extra top padding */
+    }
+    
+    .hero-inner {
+      text-align: center;
+    }
+    
+    .social-links {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .social-link {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2rem;
+      transition: opacity 0.3s;
+    }
+    
+    .social-link:hover {
+      opacity: 0.8;
+    }
+    
+    .email-address {
+      color: white;
+      font-size: 1.1rem;
+    }
+
+    /* --- NEW STYLES FOR QR CODE --- */
+    .qr-section {
+      text-align: center;
+      padding: 1.5rem 1rem;
+    }
+    .qr-section p {
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    #qrcode {
+      display: inline-block;
+      padding: 12px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .foot {
+      padding: 1rem;
+      text-align: center;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    /* HIDE THE HEADER AND MENU BUTTON ON ALL SCREENS */
+    .site-header {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+
+  <!-- Header is hidden -->
+  <header class="site-header">
+    <button id="menuBtn" class="menu-btn" aria-label="Open menu">☰</button>
+    <nav class="nav" id="nav" aria-hidden="true">
+      <!-- Navigation items can go here if needed -->
+    </nav>
+  </header>
+
+  <main class="hero">
+    <div class="hero-inner">
+      <h1 class="title">Salt & Pepper</h1>
+      <div class="social-links">
+        <a href="https://www.instagram.com/saltpepper.duo/" class="social-link" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <div class="email-address">contact.saltpepperduo@gmail.com</div>
+      </div>
+      <!-- MOVED QR CODE INTO THE MAIN HERO SECTION -->
+      <section class="qr-section">
+        <p>Scan to share</p>
+        <div id="qrcode"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <p>© <span id="year"></span> Salt & Pepper. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <!-- NEW SCRIPT TO GENERATE QR CODE -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Get the current site's URL dynamically
+      const siteUrl = window.location.href;
+
+      // Create the QR code
+      new QRCode(document.getElementById("qrcode"), {
+        text: siteUrl,
+        width: 140,
+        height: 140,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      // Footer year logic remains
+      document.getElementById("year").textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>
