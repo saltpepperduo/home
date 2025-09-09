@@ -26,6 +26,7 @@ body {
   position: relative;
   color: white;
   text-align: center;
+  overflow: hidden;
 }
 
 .bg-overlay {
@@ -34,9 +35,8 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-size: contain; /* Changed from cover to contain to show full image */
-  background-position: center;
-  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
   z-index: -2;
   background-color: #222; /* Fallback color */
 }
@@ -234,15 +234,18 @@ body {
 
 /* Mobile responsiveness */
 @media (max-width: 800px) {
+  .section {
+    min-height: 100vh;
+    height: auto;
+  }
+  
   .section-1 .bg-overlay {
     background-image: url("assets/background-mobile.jpg");
-    background-size: cover; /* Use cover on mobile to fill screen */
   }
   
   .section-2 .bg-overlay {
     background-image: url("assets/background-new.jpg");
     background-position: center center;
-    background-size: cover; /* Use cover on mobile to fill screen */
   }
   
   .text-content {
@@ -274,5 +277,13 @@ body {
   
   .video-item {
     width: 100%;
+  }
+}
+
+/* Ensure images always fill width */
+@media (min-width: 801px) {
+  .bg-overlay {
+    background-size: 100% auto;
+    background-repeat: no-repeat;
   }
 }
