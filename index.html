@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Saltpepper — Welcome</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Load the QR Code.js library from CDN -->
   <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs@gh-pages/qrcode.min.js"></script>
   <style>
-    /* DISABLE SCROLLING ON THE ENTIRE PAGE */
     html, body {
       overflow-x: hidden;
       height: 100%;
@@ -16,7 +14,6 @@
       font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
 
-    /* Section styling */
     .section {
       min-height: 100vh;
       display: flex;
@@ -47,7 +44,6 @@
       z-index: -1;
     }
     
-    /* First section with original background */
     .section-1 .bg-overlay {
       background-image: url("assets/background-desktop.jpg");
     }
@@ -56,16 +52,14 @@
       background: rgba(0,0,0,0.45);
     }
     
-    /* Second section with new background */
     .section-2 .bg-overlay {
-      background-image: url("assets/background-new.jpg"); /* Your new image */
+      background-image: url("assets/background-new.jpg");
     }
     
     .section-2 .bg-overlay::after {
       background: rgba(0,0,0,0.6);
     }
     
-    /* Content containers */
     .content {
       max-width: 1000px;
       z-index: 1;
@@ -90,7 +84,6 @@
       max-width: 800px;
     }
     
-    /* Social links */
     .social-links {
       margin-top: 20px;
       display: flex;
@@ -126,7 +119,6 @@
       justify-content: center;
     }
 
-    /* YouTube section */
     .youtube-section {
       padding: 4rem 2rem;
       background: #f9f9f9;
@@ -156,7 +148,7 @@
     
     .video-wrapper {
       position: relative;
-      padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+      padding-bottom: 56.25%;
       height: 0;
       overflow: hidden;
       border-radius: 8px;
@@ -178,7 +170,6 @@
       font-style: italic;
     }
 
-    /* QR Code */
     .qr-section {
       text-align: center;
       padding: 1.5rem 1rem;
@@ -205,12 +196,58 @@
       color: white;
     }
 
-    /* HIDE THE HEADER AND MENU BUTTON ON ALL SCREENS */
     .site-header {
       display: none;
     }
 
-    /* Mobile responsiveness */
+    .admin-panel {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.9);
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 1000;
+      width: 300px;
+    }
+    
+    .admin-toggle {
+      background: #4a4a4a;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    
+    .admin-content {
+      display: none;
+    }
+    
+    .admin-content.show {
+      display: block;
+    }
+    
+    textarea {
+      width: 100%;
+      height: 150px;
+      margin-bottom: 10px;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    
+    .admin-btn {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
     @media (max-width: 800px) {
       .section-1 .bg-overlay {
         background-image: url("assets/background-mobile.jpg");
@@ -228,24 +265,33 @@
       .content {
         padding: 1.5rem;
       }
+      
+      .admin-panel {
+        width: 250px;
+        right: 10px;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Admin panel for easy video management -->
+  <div class="admin-panel">
+    <button class="admin-toggle" onclick="toggleAdmin()">Manage Videos</button>
+    <div class="admin-content" id="adminContent">
+      <p>Edit videos below (one per line):<br>Format: URL, Title</p>
+      <textarea id="videoData">https://www.youtube.com/watch?v=O3RB060qMIA, Beautiful Melody Performance
+https://www.youtube.com/watch?v=KnwqhJx9qUs, Jazz & Classical Fusion
+https://www.youtube.com/watch?v=F_lpJzwtIbY, Traditional Folk Arrangement</textarea>
+      <button class="admin-btn" onclick="updateVideos()">Update Videos</button>
+    </div>
+  </div>
+
   <!-- First section with original background -->
   <section class="section section-1">
     <div class="bg-overlay"></div>
     <div class="content">
       <h1 class="title">Salt & Pepper</h1>
       <p class="description">Salt & Pepper er en fiolin og kontrabass-duo bestående av Katinka Nilssen og Albert Noven. Duoen kommer fra en klassisk bakgrunn, men blander også andre sjangre som folkemusikk og jazz. De er glade i å skrive sine egne arrangementer og bidra til å utvide det eksisterende fiolin og bass-repertoaret.</p>
-      <div class="social-links">
-        <a href="https://www.instagram.com/saltpepper.duo/" class="social-link" target="_blank" rel="noopener noreferrer">
-          <i class="fab fa-instagram social-icon"></i> Instagram
-        </a>
-        <div class="email-address">
-          <i class="fas fa-envelope social-icon"></i> contact.saltpepperduo@gmail.com
-        </div>
-      </div>
       <div class="qr-section">
         <p>Scan to share</p>
         <div id="qrcode"></div>
@@ -256,25 +302,8 @@
   <!-- YouTube videos section -->
   <section class="youtube-section">
     <h2 class="youtube-title">Our Performances</h2>
-    <div class="video-container">
-      <div class="video-item">
-        <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/O3RB060qMIA" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <p class="video-description">Salt & Pepper Performance</p>
-      </div>
-      <div class="video-item">
-        <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/KnwqhJx9qUs" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <p class="video-description">Salt & Pepper Performance</p>
-      </div>
-      <div class="video-item">
-        <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/F_lpJzwtIbY" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <p class="video-description">Salt & Pepper Performance</p>
-      </div>
+    <div class="video-container" id="videoContainer">
+      <!-- Videos will be dynamically inserted here -->
     </div>
   </section>
 
@@ -315,7 +344,92 @@
 
       // Footer year logic
       document.getElementById("year").textContent = new Date().getFullYear();
+      
+      // Load videos from default data
+      loadVideos();
     });
+    
+    // Function to extract YouTube ID from URL
+    function extractYouTubeId(url) {
+      const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+      const match = url.match(regExp);
+      return (match && match[7].length === 11) ? match[7] : null;
+    }
+    
+    // Function to parse video data from text
+    function parseVideoData(text) {
+      const lines = text.split('\n');
+      const videos = [];
+      
+      for (const line of lines) {
+        const trimmedLine = line.trim();
+        if (trimmedLine) {
+          const parts = trimmedLine.split(',');
+          if (parts.length >= 2) {
+            const url = parts[0].trim();
+            const title = parts.slice(1).join(',').trim(); // In case title contains commas
+            const id = extractYouTubeId(url);
+            
+            if (id) {
+              videos.push({ id, title, url });
+            }
+          }
+        }
+      }
+      
+      return videos;
+    }
+    
+    // Function to render videos
+    function renderVideos(videos) {
+      const videoContainer = document.getElementById('videoContainer');
+      videoContainer.innerHTML = ''; // Clear existing content
+      
+      if (videos.length === 0) {
+        videoContainer.innerHTML = '<p>No videos available</p>';
+        return;
+      }
+      
+      videos.forEach(video => {
+        const videoItem = document.createElement('div');
+        videoItem.className = 'video-item';
+        
+        videoItem.innerHTML = `
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/${video.id}" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
+          </div>
+          <p class="video-description">${video.title}</p>
+        `;
+        
+        videoContainer.appendChild(videoItem);
+      });
+    }
+    
+    // Function to load videos from text area
+    function loadVideos() {
+      const videoDataText = document.getElementById('videoData').value;
+      const videos = parseVideoData(videoDataText);
+      renderVideos(videos);
+    }
+    
+    // Function to update videos
+    function updateVideos() {
+      loadVideos();
+      alert('Videos updated successfully!');
+    }
+    
+    // Function to toggle admin panel
+    function toggleAdmin() {
+      const adminContent = document.getElementById('adminContent');
+      adminContent.classList.toggle('show');
+    }
+    
+    // Make functions available globally for the buttons
+    window.loadVideos = loadVideos;
+    window.updateVideos = updateVideos;
+    window.toggleAdmin = toggleAdmin;
   </script>
 </body>
 </html>
