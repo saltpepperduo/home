@@ -4,34 +4,99 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Saltpepper — Welcome</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Load the QR Code.js library from CDN -->
   <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs@gh-pages/qrcode.min.js"></script>
   <style>
     /* DISABLE SCROLLING ON THE ENTIRE PAGE */
     html, body {
-      overflow: hidden;
+      overflow-x: hidden;
       height: 100%;
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
 
-    .hero {
-      display: flex;
-      justify-content: center;
-      align-items: center; /* Centers vertically */
+    /* Section styling */
+    .section {
       min-height: 100vh;
-      padding-top: 0; /* Remove extra top padding */
-    }
-    
-    .hero-inner {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      padding: 2rem;
+      color: white;
       text-align: center;
     }
     
+    .bg-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      z-index: -2;
+    }
+    
+    .bg-overlay::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+    }
+    
+    /* First section with original background */
+    .section-1 .bg-overlay {
+      background-image: url("assets/background-desktop.jpg");
+    }
+    
+    .section-1 .bg-overlay::after {
+      background: rgba(0,0,0,0.45);
+    }
+    
+    /* Second section with new background */
+    .section-2 .bg-overlay {
+      background-image: url("assets/background-new.jpg"); /* Your new image */
+    }
+    
+    .section-2 .bg-overlay::after {
+      background: rgba(0,0,0,0.6);
+    }
+    
+    /* Content containers */
+    .content {
+      max-width: 1000px;
+      z-index: 1;
+      padding: 2rem;
+      backdrop-filter: blur(2px);
+      border-radius: 12px;
+      background: rgba(0,0,0,0.2);
+    }
+    
+    .title {
+      margin: 0 0 0.5rem 0;
+      font-size: clamp(2.25rem, 6vw, 4rem);
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      text-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    }
+    
+    .description {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      max-width: 800px;
+    }
+    
+    /* Social links */
     .social-links {
       margin-top: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 15px;
     }
     
     .social-link {
@@ -39,26 +104,92 @@
       text-decoration: none;
       font-size: 1.2rem;
       transition: opacity 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
     
     .social-link:hover {
       opacity: 0.8;
     }
     
+    .social-icon {
+      font-size: 1.5rem;
+    }
+    
     .email-address {
       color: white;
       font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
     }
 
-    /* --- NEW STYLES FOR QR CODE --- */
+    /* YouTube section */
+    .youtube-section {
+      padding: 4rem 2rem;
+      background: #f9f9f9;
+      text-align: center;
+    }
+    
+    .youtube-title {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: #333;
+    }
+    
+    .video-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .video-item {
+      flex: 1;
+      min-width: 300px;
+      max-width: 400px;
+    }
+    
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+      height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+    
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    .video-description {
+      margin-top: 1rem;
+      color: #666;
+      font-style: italic;
+    }
+
+    /* QR Code */
     .qr-section {
       text-align: center;
       padding: 1.5rem 1rem;
+      margin-top: 2rem;
     }
+    
     .qr-section p {
       margin-bottom: 1rem;
       font-weight: 600;
     }
+    
     #qrcode {
       display: inline-block;
       padding: 12px;
@@ -66,53 +197,107 @@
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
+    
     .foot {
       padding: 1rem;
       text-align: center;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      background: #222;
+      color: white;
     }
 
     /* HIDE THE HEADER AND MENU BUTTON ON ALL SCREENS */
     .site-header {
       display: none;
     }
+
+    /* Mobile responsiveness */
+    @media (max-width: 800px) {
+      .section-1 .bg-overlay {
+        background-image: url("assets/background-mobile.jpg");
+      }
+      
+      .video-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .video-item {
+        width: 100%;
+      }
+      
+      .content {
+        padding: 1.5rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="bg"></div>
-
-  <!-- Header is hidden -->
-  <header class="site-header">
-    <button id="menuBtn" class="menu-btn" aria-label="Open menu">☰</button>
-    <nav class="nav" id="nav" aria-hidden="true">
-      <!-- Navigation items can go here if needed -->
-    </nav>
-  </header>
-
-  <main class="hero">
-    <div class="hero-inner">
+  <!-- First section with original background -->
+  <section class="section section-1">
+    <div class="bg-overlay"></div>
+    <div class="content">
       <h1 class="title">Salt & Pepper</h1>
+      <p class="description">Salt & Pepper er en fiolin og kontrabass-duo bestående av Katinka Nilssen og Albert Noven. Duoen kommer fra en klassisk bakgrunn, men blander også andre sjangre som folkemusikk og jazz. De er glade i å skrive sine egne arrangementer og bidra til å utvide det eksisterende fiolin og bass-repertoaret.</p>
       <div class="social-links">
-        <a href="https://www.instagram.com/saltpepper.duo/" class="social-link" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <div class="email-address">contact.saltpepperduo@gmail.com</div>
+        <a href="https://www.instagram.com/saltpepper.duo/" class="social-link" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-instagram social-icon"></i> Instagram
+        </a>
+        <div class="email-address">
+          <i class="fas fa-envelope social-icon"></i> contact.saltpepperduo@gmail.com
+        </div>
       </div>
-      <!-- MOVED QR CODE INTO THE MAIN HERO SECTION -->
-      <section class="qr-section">
+      <div class="qr-section">
         <p>Scan to share</p>
         <div id="qrcode"></div>
-      </section>
+      </div>
     </div>
-  </main>
+  </section>
+
+  <!-- YouTube videos section -->
+  <section class="youtube-section">
+    <h2 class="youtube-title">Our Performances</h2>
+    <div class="video-container">
+      <div class="video-item">
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/O3RB060qMIA" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <p class="video-description">Salt & Pepper Performance</p>
+      </div>
+      <div class="video-item">
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/KnwqhJx9qUs" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <p class="video-description">Salt & Pepper Performance</p>
+      </div>
+      <div class="video-item">
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/F_lpJzwtIbY" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <p class="video-description">Salt & Pepper Performance</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Second section with new background -->
+  <section class="section section-2">
+    <div class="bg-overlay"></div>
+    <div class="content">
+      <h2 class="title">Contact Us</h2>
+      <div class="social-links">
+        <a href="https://www.instagram.com/saltpepper.duo/" class="social-link" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-instagram social-icon"></i> Follow us on Instagram
+        </a>
+        <a href="mailto:contact.saltpepperduo@gmail.com" class="social-link">
+          <i class="fas fa-envelope social-icon"></i> Email us
+        </a>
+      </div>
+    </div>
+  </section>
 
   <footer class="foot">
     <p>© <span id="year"></span> Salt & Pepper. All rights reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
-  <!-- NEW SCRIPT TO GENERATE QR CODE -->
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       // Get the current site's URL dynamically
@@ -128,7 +313,7 @@
         correctLevel: QRCode.CorrectLevel.H
       });
 
-      // Footer year logic remains
+      // Footer year logic
       document.getElementById("year").textContent = new Date().getFullYear();
     });
   </script>
