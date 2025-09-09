@@ -14,6 +14,17 @@ document.addEventListener("DOMContentLoaded", function(){
   // footer year
   document.getElementById("year").textContent = new Date().getFullYear();
   
+  // Create QR code
+  const siteUrl = window.location.href;
+  new QRCode(document.getElementById("qrcode"), {
+    text: siteUrl,
+    width: 140,
+    height: 140,
+    colorDark: "#000000",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+  
   // Load videos from text file
   loadVideos();
 });
@@ -87,12 +98,6 @@ async function loadVideos() {
     const videoDataText = await response.text();
     const videos = parseVideoData(videoDataText);
     renderVideos(videos);
-    
-    // Also populate the textarea in admin panel
-    const textarea = document.getElementById('videoData');
-    if (textarea) {
-      textarea.value = videoDataText;
-    }
   } catch (error) {
     console.error('Error loading videos:', error);
     // Fallback to default videos
@@ -102,36 +107,5 @@ https://www.youtube.com/watch?v=F_lpJzwtIbY, Traditional Folk Arrangement`;
     
     const videos = parseVideoData(defaultVideos);
     renderVideos(videos);
-    
-    const textarea = document.getElementById('videoData');
-    if (textarea) {
-      textarea.value = defaultVideos;
-    }
   }
 }
-
-// Function to update videos
-async function updateVideos() {
-  const textarea = document.getElementById('videoData');
-  if (!textarea) return;
-  
-  const videoDataText = textarea.value;
-  const videos = parseVideoData(videoDataText);
-  renderVideos(videos);
-  
-  // In a real application, you would save this to the server
-  alert('Videos updated successfully! (Note: Changes are temporary and will reset on page refresh)');
-}
-
-// Function to toggle admin panel
-function toggleAdmin() {
-  const adminContent = document.getElementById('adminContent');
-  if (adminContent) {
-    adminContent.classList.toggle('show');
-  }
-}
-
-// Make functions available globally for the buttons
-window.loadVideos = loadVideos;
-window.updateVideos = updateVideos;
-window.toggleAdmin = toggleAdmin;
