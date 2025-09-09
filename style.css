@@ -5,61 +5,82 @@
   box-sizing: border-box;
 }
 
-body, html {
-  height: 100%;
+body {
   font-family: Arial, sans-serif;
   color: white;
-  text-align: center;
+  background: black;
 }
 
-.background {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-/* Top section */
+/* Top image */
 .background-top {
-  flex: 1;
+  width: 100%;
   background: url("assets/background-top.jpg") no-repeat center center;
   background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 
-/* Content section */
-.content {
+.overlay {
+  margin-top: 10%; /* ca. øverste tredjedel */
+  text-align: center;
   padding: 2rem;
-  background: rgba(0, 0, 0, 0.5);
 }
 
-.content h1 {
+.overlay h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
 }
 
-.content p {
+.overlay p {
+  max-width: 800px;
+  margin: 0 auto;
   font-size: 1.2rem;
+  line-height: 1.6;
 }
 
-/* Bottom section */
+/* YouTube section */
+.videos {
+  padding: 2rem;
+  text-align: center;
+  background: black;
+}
+
+.videos h2 {
+  margin: 1rem 0;
+}
+
+.videos iframe {
+  width: 90%;
+  max-width: 800px;
+  height: 450px;
+  margin-bottom: 2rem;
+  border: none;
+}
+
+/* Bottom image */
 .background-bottom {
-  flex: 1;
+  width: 100%;
   background: url("assets/background-bottom.jpg") no-repeat center center;
   background-size: cover;
+  min-height: 100vh;
 }
 
-/* Mobile background */
-@media (max-width: 768px) {
-  .background-top,
-  .background-bottom {
-    display: none;
-  }
-  .background {
-    background: url("assets/background-mobile.jpg") no-repeat center center;
-    background-size: cover;
-    justify-content: center;
-  }
-  .content {
-    background: rgba(0, 0, 0, 0.4);
-    padding: 1rem;
-  }
+/* Footer */
+footer {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1.5rem;
+  background: black;
+}
+
+footer svg {
+  cursor: pointer;
+}
+
+#qrCode {
+  width: 60px;
+  height: 60px;
 }
