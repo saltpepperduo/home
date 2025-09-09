@@ -1,6 +1,6 @@
 /* Plain & simple — white text on a full background image */
 :root {
-  --overlay: rgba(0,0,0,0.45); /* tweak if you want lighter/darker */
+  --overlay: rgba(0,0,0,0.45);
   --accent: rgba(255,255,255,0.95);
   --max-width: 1000px;
   --gap: 1rem;
@@ -11,94 +11,72 @@
 html, body {
   height: 100%;
   margin: 0;
+  overflow-x: hidden;
 }
 
 body {
   color: white;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
 }
 
-/* Background image layer - DESKTOP VERSION */
-.bg {
-  position: fixed;
-  inset: 0;
-  background-image: url("assets/background-desktop.jpg");
+/* Section styling */
+.section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 2rem;
+  color: white;
+  text-align: center;
+}
+
+.bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-  background-color: #222; /* Fallback color */
   z-index: -2;
 }
 
-/* subtle dark overlay so white text is readable */
-.bg::after {
+.bg-overlay::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--overlay);
   z-index: -1;
 }
 
-/* header */
-.site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 0.75rem 1rem;
-  gap: var(--gap);
-  z-index: 10;
+/* First section with original background */
+.section-1 .bg-overlay {
+  background-image: url("assets/background-desktop.jpg");
 }
 
-/* nav (hidden on small screens) */
-.nav {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  margin-right: 1rem;
+.section-1 .bg-overlay::after {
+  background: rgba(0,0,0,0.45);
 }
 
-.nav a {
-  color: white;
-  text-decoration: none;
-  font-weight: 600;
-  padding: 0.4rem 0.6rem;
-  border-radius: 6px;
-  transition: background 150ms ease;
+/* Second section with new background */
+.section-2 .bg-overlay {
+  background-image: url("assets/background-new.jpg");
 }
 
-.nav a:hover {
-  background: rgba(255,255,255,0.08);
+.section-2 .bg-overlay::after {
+  background: rgba(0,0,0,0.6);
 }
 
-/* mobile menu button */
-.menu-btn {
-  background: transparent;
-  color: white;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-  display: none;
-}
-
-/* hero section center */
-.hero {
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  padding: 6rem 1.25rem 4rem;
-}
-
-.hero-inner {
+/* Content containers */
+.content {
   max-width: var(--max-width);
+  z-index: 1;
   padding: 2rem;
-  backdrop-filter: blur(0.2px); /* tiny effect */
+  backdrop-filter: blur(2px);
+  border-radius: 12px;
+  background: rgba(0,0,0,0.2);
 }
 
 .title {
@@ -109,63 +87,203 @@ body {
   text-shadow: 0 6px 18px rgba(0,0,0,0.5);
 }
 
-.subtitle {
-  margin: 0 0 1.5rem 0;
-  font-size: clamp(1rem, 2.6vw, 1.25rem);
-  opacity: 0.95;
+.description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  max-width: 800px;
 }
 
-/* CTA */
-.cta {
-  display: inline-block;
+/* Social links */
+.social-links {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.social-link {
+  color: white;
   text-decoration: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.18);
-  color: var(--accent);
-  font-weight: 600;
-  transition: transform 120ms ease, background 120ms ease;
+  font-size: 1.2rem;
+  transition: opacity 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.cta:hover {
-  transform: translateY(-3px);
-  background: rgba(255,255,255,0.04);
+.social-link:hover {
+  opacity: 0.8;
 }
 
-/* footer */
-.foot {
-  position: relative;
-  margin-top: 3rem;
-  padding: 2rem 1rem;
+.social-icon {
+  font-size: 1.5rem;
+}
+
+.email-address {
+  color: white;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* YouTube section */
+.youtube-section {
+  padding: 4rem 2rem;
+  background: #f9f9f9;
   text-align: center;
-  font-size: 0.9rem;
-  opacity: 0.95;
 }
 
-/* MOBILE STYLES (under 800px) */
+.youtube-title {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.video-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.video-item {
+  flex: 1;
+  min-width: 300px;
+  max-width: 400px;
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.video-description {
+  margin-top: 1rem;
+  color: #666;
+  font-style: italic;
+}
+
+/* QR Code */
+.qr-section {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  margin-top: 2rem;
+}
+
+.qr-section p {
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+#qrcode {
+  display: inline-block;
+  padding: 12px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.foot {
+  padding: 1rem;
+  text-align: center;
+  background: #222;
+  color: white;
+}
+
+/* Admin panel */
+.admin-panel {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(255,255,255,0.9);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 1000;
+  width: 300px;
+}
+
+.admin-toggle {
+  background: #4a4a4a;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.admin-content {
+  display: none;
+}
+
+.admin-content.show {
+  display: block;
+}
+
+textarea {
+  width: 100%;
+  height: 150px;
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.admin-btn {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* HIDE THE HEADER AND MENU BUTTON ON ALL SCREENS */
+.site-header {
+  display: none;
+}
+
+/* Mobile responsiveness */
 @media (max-width: 800px) {
-  /* Switch to mobile background image */
-  .bg {
+  .section-1 .bg-overlay {
     background-image: url("assets/background-mobile.jpg");
-    background-position: 50% center; /* Center the mobile image */
   }
-
-  /* Darker overlay for better contrast on mobile */
-  .bg::after {
-    background: rgba(0,0,0,0.6);
+  
+  .video-container {
+    flex-direction: column;
+    align-items: center;
   }
-
-  /* Mobile menu styles */
-  .nav {
-    display: none;
+  
+  .video-item {
+    width: 100%;
   }
-
-  .menu-btn {
-    display: inline-block;
+  
+  .content {
+    padding: 1.5rem;
   }
-
-  .site-header {
-    justify-content: flex-start;
-    padding-left: 1rem;
+  
+  .admin-panel {
+    width: 250px;
+    right: 10px;
   }
 }
