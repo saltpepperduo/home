@@ -25,6 +25,33 @@ document.addEventListener("DOMContentLoaded", function(){
     correctLevel: QRCode.CorrectLevel.H
   });
   
+  // Set up email copy functionality
+  const emailLink = document.getElementById('emailLink');
+  const copyNotification = document.getElementById('copyNotification');
+  
+  if (emailLink && copyNotification) {
+    emailLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Copy email to clipboard
+      navigator.clipboard.writeText('contact.saltpepperduo@gmail.com')
+        .then(() => {
+          // Show notification
+          copyNotification.classList.add('show');
+          
+          // Hide notification after 2 seconds
+          setTimeout(() => {
+            copyNotification.classList.remove('show');
+          }, 2000);
+        })
+        .catch(err => {
+          console.error('Failed to copy: ', err);
+          // Fallback: Open mail client
+          window.location.href = 'mailto:contact.saltpepperduo@gmail.com';
+        });
+    });
+  }
+  
   // Load videos from text file
   loadVideos();
 });
