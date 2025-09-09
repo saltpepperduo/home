@@ -63,6 +63,7 @@ body {
 /* Second section with new background */
 .section-2 .bg-overlay {
   background-image: url("assets/background-new.jpg");
+  background-color: #222; /* Fallback color if image doesn't load */
 }
 
 .section-2 .bg-overlay::after {
@@ -101,6 +102,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 15px;
+  position: relative;
 }
 
 .social-link {
@@ -111,6 +113,7 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
 }
 
 .social-link:hover {
@@ -128,6 +131,25 @@ body {
   align-items: center;
   gap: 10px;
   justify-content: center;
+}
+
+/* Copy notification */
+.copy-notification {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.copy-notification.show {
+  opacity: 1;
 }
 
 /* YouTube section */
@@ -218,6 +240,11 @@ body {
 @media (max-width: 800px) {
   .section-1 .bg-overlay {
     background-image: url("assets/background-mobile.jpg");
+  }
+  
+  .section-2 .bg-overlay {
+    background-image: url("assets/background-new.jpg");
+    background-position: center center;
   }
   
   .video-container {
