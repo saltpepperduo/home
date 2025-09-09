@@ -23,12 +23,7 @@ body {
 /* Section styling */
 .section {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   position: relative;
-  padding: 2rem;
   color: white;
   text-align: center;
 }
@@ -57,7 +52,34 @@ body {
 }
 
 .section-1 .bg-overlay::after {
-  background: rgba(0,0,0,0.45);
+  background: rgba(0,0,0,0.3);
+}
+
+/* Text content for first section - centered at top half */
+.text-content {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 800px;
+  width: 80%;
+  text-align: center;
+  padding: 2rem;
+}
+
+.title {
+  margin: 0 0 1rem 0;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: white;
+}
+
+.description {
+  font-size: 1.3rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: white;
 }
 
 /* Second section with new background */
@@ -67,70 +89,49 @@ body {
 }
 
 .section-2 .bg-overlay::after {
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.4);
 }
 
-/* Content containers */
-.content {
-  max-width: var(--max-width);
-  z-index: 1;
-  padding: 2rem;
-  backdrop-filter: blur(2px);
-  border-radius: 12px;
-  background: rgba(0,0,0,0.2);
-}
-
-.title {
-  margin: 0 0 0.5rem 0;
-  font-size: clamp(2.25rem, 6vw, 4rem);
-  letter-spacing: -0.02em;
-  font-weight: 700;
-  text-shadow: 0 6px 18px rgba(0,0,0,0.5);
-}
-
-.description {
-  font-size: 1.2rem;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-  max-width: 800px;
+/* Contact panel for second section - top right corner */
+.contact-panel {
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
 }
 
 /* Social links */
 .social-links {
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
-  position: relative;
+  gap: 1rem;
 }
 
 .social-link {
   color: white;
   text-decoration: none;
-  font-size: 1.2rem;
-  transition: opacity 0.3s;
+  font-size: 1.1rem;
+  transition: all 0.3s;
   display: flex;
   align-items: center;
-  gap: 10px;
-  cursor: pointer;
+  gap: 0.5rem;
+  padding: 0.7rem 1.2rem;
+  border-radius: 30px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
 }
 
 .social-link:hover {
-  opacity: 0.8;
+  background: rgba(255,255,255,0.2);
 }
 
 .social-icon {
-  font-size: 1.5rem;
-}
-
-.email-address {
-  color: white;
-  font-size: 1.1rem;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  justify-content: center;
+  font-size: 1.3rem;
 }
 
 /* Copy notification */
@@ -152,10 +153,10 @@ body {
   opacity: 1;
 }
 
-/* YouTube section */
+/* YouTube section with grey background */
 .youtube-section {
   padding: 4rem 2rem;
-  background: #f9f9f9;
+  background: #f0f0f0; /* Light grey background */
   text-align: center;
 }
 
@@ -207,13 +208,12 @@ body {
 /* QR Code */
 .qr-section {
   text-align: center;
-  padding: 1.5rem 1rem;
-  margin-top: 2rem;
 }
 
 .qr-section p {
   margin-bottom: 1rem;
   font-weight: 600;
+  color: white;
 }
 
 #qrcode {
@@ -221,7 +221,6 @@ body {
   padding: 12px;
   background: white;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .foot {
@@ -229,11 +228,6 @@ body {
   text-align: center;
   background: #222;
   color: white;
-}
-
-/* HIDE THE HEADER AND MENU BUTTON ON ALL SCREENS */
-.site-header {
-  display: none;
 }
 
 /* Mobile responsiveness */
@@ -247,6 +241,25 @@ body {
     background-position: center center;
   }
   
+  .text-content {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    padding: 4rem 1.5rem 2rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .contact-panel {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin: 2rem auto;
+    width: 80%;
+    max-width: 300px;
+  }
+  
   .video-container {
     flex-direction: column;
     align-items: center;
@@ -254,9 +267,5 @@ body {
   
   .video-item {
     width: 100%;
-  }
-  
-  .content {
-    padding: 1.5rem;
   }
 }
