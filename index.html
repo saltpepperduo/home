@@ -7,11 +7,45 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs@gh-pages/qrcode.min.js"></script>
+  <style>
+    /* Debug styles */
+    .debug-info {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      z-index: 1000;
+    }
+    .image-placeholder {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #666;
+      color: white;
+      font-size: 16px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -3;
+    }
+  </style>
 </head>
 <body>
+  <!-- Debug information -->
+  <div class="debug-info" id="debugInfo">
+    Loading images...
+  </div>
+
   <!-- First section with original background -->
   <section class="section section-1">
     <div class="bg-overlay"></div>
+    <div class="image-placeholder">assets/background-desktop.jpg</div>
     <div class="text-content">
       <h1 class="title">Salt & Pepper</h1>
       <p class="description">Salt & Pepper er en fiolin og kontrabass-duo bestående av Katinka Nilssen og Albert Noven. Duoen kommer fra en klassisk bakgrunn, men blander også andre sjangre som folkemusikk og jazz. De er glade i å skrive sine egne arrangementer og bidra til å utvide det eksisterende fiolin og bass-repertoaret.</p>
@@ -29,6 +63,7 @@
   <!-- Second section with new background -->
   <section class="section section-2">
     <div class="bg-overlay"></div>
+    <div class="image-placeholder">assets/background-new.jpg</div>
     <div class="contact-panel">
       <div class="qr-section">
         <p>Scan to share</p>
@@ -51,5 +86,50 @@
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    // Image loading diagnostics
+    document.addEventListener('DOMContentLoaded', function() {
+      const debugInfo = document.getElementById('debugInfo');
+      const images = [
+        'assets/background-desktop.jpg',
+        'assets/background-new.jpg',
+        'assets/background-mobile.jpg'
+      ];
+      
+      let loadedCount = 0;
+      let failedCount = 0;
+      
+      images.forEach(imageSrc => {
+        const img = new Image();
+        img.onload = function() {
+          loadedCount++;
+          updateDebugInfo();
+        };
+        img.onerror = function() {
+          failedCount++;
+          debugInfo.innerHTML += `<div style="color: red;">Failed to load: ${imageSrc}</div>`;
+          updateDebugInfo();
+        };
+        img.src = imageSrc;
+      });
+      
+      function updateDebugInfo() {
+        if (loadedCount + failedCount === images.length) {
+          debugInfo.innerHTML = `
+            <div>Images loaded: ${loadedCount}/${images.length}</div>
+            <div>Check browser console for details</div>
+          `;
+          
+          if (failedCount > 0) {
+            console.error('Some images failed to load. Possible issues:');
+            console.error('1. Incorrect file paths');
+            console.error('2. Images not in the assets folder');
+            console.error('3. Incorrect file names or extensions');
+            console.error('4. Case sensitivity issues (Background.jpg vs background.jpg)');
+          }
+        }
+      }
+    });
+  </script>
 </body>
 </html>
