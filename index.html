@@ -22,7 +22,6 @@
     
     body {
       overflow-x: hidden;
-      background-color: #222; /* Fallback if images don't load */
     }
     
     /* Section styling */
@@ -34,24 +33,15 @@
     /* First section with background image */
     .section-1 {
       height: 100vh;
-      background: #222 url('assets/background-desktop.jpg') no-repeat center center;
-      background-size: cover;
+      min-height: 600px;
       display: flex;
       align-items: flex-start;
       justify-content: center;
       padding-top: 15vh;
-    }
-    
-    /* Fallback for missing image */
-    .section-1:before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, #2c3e50, #4a69bd);
-      z-index: -1;
+      position: relative;
+      overflow: hidden;
+      background: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80') no-repeat center center;
+      background-size: cover;
     }
     
     .text-content {
@@ -59,6 +49,7 @@
       max-width: 800px;
       padding: 0 2rem;
       z-index: 1;
+      position: relative;
     }
     
     .title {
@@ -66,7 +57,7 @@
       font-weight: 700;
       margin-bottom: 1.5rem;
       letter-spacing: -0.5px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
     }
     
     .description {
@@ -74,7 +65,7 @@
       line-height: 1.6;
       max-width: 700px;
       margin: 0 auto;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
     }
     
     /* YouTube videos section */
@@ -132,21 +123,11 @@
     /* Second section with background image */
     .section-2 {
       height: 100vh;
-      background: #222 url('assets/background-new.jpg') no-repeat center center;
-      background-size: cover;
+      min-height: 600px;
       position: relative;
-    }
-    
-    /* Fallback for missing image */
-    .section-2:before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, #34495e, #2c3e50);
-      z-index: -1;
+      overflow: hidden;
+      background: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80') no-repeat center center;
+      background-size: cover;
     }
     
     .contact-panel {
@@ -167,7 +148,7 @@
       margin-bottom: 1rem;
       font-weight: 600;
       font-size: 1.2rem;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
     }
     
     #qrcode {
@@ -236,42 +217,8 @@
       color: white;
     }
     
-    /* Image error handling */
-    .image-error {
-      position: relative;
-    }
-    
-    .image-error::after {
-      content: "Image not available";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: white;
-      font-weight: bold;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
-    }
-    
-    /* Debug info */
-    .debug-info {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      background: rgba(0,0,0,0.7);
-      color: white;
-      padding: 10px;
-      border-radius: 5px;
-      font-size: 12px;
-      z-index: 1000;
-    }
-    
     /* Mobile responsiveness */
     @media (max-width: 800px) {
-      .section-1 {
-        background-image: url('assets/background-mobile.jpg');
-        padding-top: 10vh;
-      }
-      
       .title {
         font-size: 2.5rem;
       }
@@ -299,10 +246,6 @@
       
       .social-link {
         justify-content: center;
-      }
-      
-      .debug-info {
-        display: none;
       }
     }
   </style>
@@ -347,10 +290,6 @@
     <p>© <span id="year"></span> Salt & Pepper. All rights reserved.</p>
   </footer>
 
-  <div class="debug-info" id="debugInfo">
-    Image Path Debug Info
-  </div>
-
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       // Set current year in footer
@@ -391,43 +330,7 @@
       
       // Load videos from text file
       loadVideos();
-      
-      // Check if images are loading properly
-      checkImages();
     });
-
-    // Function to check if images are loading
-    function checkImages() {
-      const debugInfo = document.getElementById('debugInfo');
-      const imagePaths = [
-        'assets/background-desktop.jpg',
-        'assets/background-mobile.jpg',
-        'assets/background-new.jpg'
-      ];
-      
-      let debugHtml = '<div>Image Status:</div>';
-      
-      imagePaths.forEach(path => {
-        const img = new Image();
-        img.onload = function() {
-          debugHtml += `<div>✅ ${path}</div>`;
-          debugInfo.innerHTML = debugHtml;
-        };
-        img.onerror = function() {
-          debugHtml += `<div>❌ ${path} (not found)</div>`;
-          debugInfo.innerHTML = debugHtml;
-          
-          // Add error class to sections if their background images fail
-          if (path === 'assets/background-desktop.jpg' || path === 'assets/background-mobile.jpg') {
-            document.querySelector('.section-1').classList.add('image-error');
-          }
-          if (path === 'assets/background-new.jpg') {
-            document.querySelector('.section-2').classList.add('image-error');
-          }
-        };
-        img.src = path;
-      });
-    }
 
     // Function to extract YouTube ID from URL
     function extractYouTubeId(url) {
