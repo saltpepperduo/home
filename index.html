@@ -22,7 +22,7 @@
     
     body {
       overflow-x: hidden;
-      background-color: #222;
+      background-color: #222; /* Fallback if images don't load */
     }
     
     /* Section styling */
@@ -31,30 +31,27 @@
       position: relative;
     }
     
-    /* First section with background image - FIXED TO SHOW ENTIRE IMAGE */
+    /* First section with background image */
     .section-1 {
       height: 100vh;
-      min-height: 600px;
+      background: #222 url('assets/background-desktop.jpg') no-repeat center center;
+      background-size: cover;
       display: flex;
       align-items: flex-start;
       justify-content: center;
       padding-top: 15vh;
-      position: relative;
-      overflow: hidden;
-      background: #2c3e50; /* Fallback color */
     }
     
-    /* Background image that shows entirely */
-    .section-1::before {
+    /* Fallback for missing image */
+    .section-1:before {
       content: "";
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80') no-repeat center center;
-      background-size: contain; /* Changed from cover to contain */
-      z-index: 0;
+      background: linear-gradient(45deg, #2c3e50, #4a69bd);
+      z-index: -1;
     }
     
     .text-content {
@@ -62,7 +59,6 @@
       max-width: 800px;
       padding: 0 2rem;
       z-index: 1;
-      position: relative;
     }
     
     .title {
@@ -70,7 +66,7 @@
       font-weight: 700;
       margin-bottom: 1.5rem;
       letter-spacing: -0.5px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
     
     .description {
@@ -78,10 +74,7 @@
       line-height: 1.6;
       max-width: 700px;
       margin: 0 auto;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-      background: rgba(0, 0, 0, 0.6);
-      padding: 1.5rem;
-      border-radius: 10px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
     }
     
     /* YouTube videos section */
@@ -136,26 +129,24 @@
       font-style: italic;
     }
     
-    /* Second section with background image - FIXED TO SHOW ENTIRE IMAGE */
+    /* Second section with background image */
     .section-2 {
       height: 100vh;
-      min-height: 600px;
+      background: #222 url('assets/background-new.jpg') no-repeat center center;
+      background-size: cover;
       position: relative;
-      overflow: hidden;
-      background: #34495e; /* Fallback color */
     }
     
-    /* Background image that shows entirely */
-    .section-2::before {
+    /* Fallback for missing image */
+    .section-2:before {
       content: "";
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80') no-repeat center center;
-      background-size: contain; /* Changed from cover to contain */
-      z-index: 0;
+      background: linear-gradient(135deg, #34495e, #2c3e50);
+      z-index: -1;
     }
     
     .contact-panel {
@@ -166,10 +157,6 @@
       flex-direction: column;
       gap: 2rem;
       z-index: 1;
-      background: rgba(0, 0, 0, 0.7);
-      padding: 2rem;
-      border-radius: 15px;
-      backdrop-filter: blur(5px);
     }
     
     .qr-section {
@@ -180,6 +167,7 @@
       margin-bottom: 1rem;
       font-weight: 600;
       font-size: 1.2rem;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
     }
     
     #qrcode {
@@ -208,6 +196,7 @@
       background: rgba(255,255,255,0.1);
       border: 1px solid rgba(255,255,255,0.2);
       transition: all 0.3s;
+      backdrop-filter: blur(5px);
     }
     
     .social-link:hover {
@@ -247,43 +236,48 @@
       color: white;
     }
     
-    /* Instructions for fixing the image */
-    .image-instructions {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      background: rgba(0,0,0,0.8);
+    /* Image error handling */
+    .image-error {
+      position: relative;
+    }
+    
+    .image-error::after {
+      content: "Image not available";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       color: white;
-      padding: 15px;
-      border-radius: 8px;
-      font-size: 14px;
-      max-width: 300px;
+      font-weight: bold;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+    }
+    
+    /* Debug info */
+    .debug-info {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 12px;
       z-index: 1000;
-    }
-    
-    .image-instructions h3 {
-      margin-bottom: 10px;
-      color: #4a69bd;
-    }
-    
-    .image-instructions ul {
-      padding-left: 20px;
-      margin-bottom: 10px;
-    }
-    
-    .image-instructions li {
-      margin-bottom: 5px;
     }
     
     /* Mobile responsiveness */
     @media (max-width: 800px) {
+      .section-1 {
+        background-image: url('assets/background-mobile.jpg');
+        padding-top: 10vh;
+      }
+      
       .title {
         font-size: 2.5rem;
       }
       
       .description {
         font-size: 1.2rem;
-        padding: 1rem;
       }
       
       .video-container {
@@ -307,24 +301,13 @@
         justify-content: center;
       }
       
-      .image-instructions {
+      .debug-info {
         display: none;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Instructions for fixing the image -->
-  <div class="image-instructions">
-    <h3>To Use Your Own Images:</h3>
-    <ul>
-      <li>Create an <strong>assets</strong> folder</li>
-      <li>Add your images to this folder</li>
-      <li>Update the image paths in the CSS</li>
-    </ul>
-    <p>Replace the URLs in the ::before rules with your image paths.</p>
-  </div>
-
   <!-- First section with background image and text -->
   <section class="section section-1">
     <div class="text-content">
@@ -363,6 +346,10 @@
   <footer class="foot">
     <p>© <span id="year"></span> Salt & Pepper. All rights reserved.</p>
   </footer>
+
+  <div class="debug-info" id="debugInfo">
+    Image Path Debug Info
+  </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -404,7 +391,43 @@
       
       // Load videos from text file
       loadVideos();
+      
+      // Check if images are loading properly
+      checkImages();
     });
+
+    // Function to check if images are loading
+    function checkImages() {
+      const debugInfo = document.getElementById('debugInfo');
+      const imagePaths = [
+        'assets/background-desktop.jpg',
+        'assets/background-mobile.jpg',
+        'assets/background-new.jpg'
+      ];
+      
+      let debugHtml = '<div>Image Status:</div>';
+      
+      imagePaths.forEach(path => {
+        const img = new Image();
+        img.onload = function() {
+          debugHtml += `<div>✅ ${path}</div>`;
+          debugInfo.innerHTML = debugHtml;
+        };
+        img.onerror = function() {
+          debugHtml += `<div>❌ ${path} (not found)</div>`;
+          debugInfo.innerHTML = debugHtml;
+          
+          // Add error class to sections if their background images fail
+          if (path === 'assets/background-desktop.jpg' || path === 'assets/background-mobile.jpg') {
+            document.querySelector('.section-1').classList.add('image-error');
+          }
+          if (path === 'assets/background-new.jpg') {
+            document.querySelector('.section-2').classList.add('image-error');
+          }
+        };
+        img.src = path;
+      });
+    }
 
     // Function to extract YouTube ID from URL
     function extractYouTubeId(url) {
