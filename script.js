@@ -1,17 +1,5 @@
-// tiny interactions: mobile nav toggle and year
-document.addEventListener("DOMContentLoaded", function(){
-  const menuBtn = document.getElementById("menuBtn");
-  const nav = document.getElementById("nav");
-
-  if (menuBtn && nav) {
-    menuBtn.addEventListener("click", () => {
-      const isOpen = nav.getAttribute("aria-hidden") === "false";
-      nav.setAttribute("aria-hidden", String(!isOpen));
-      nav.style.display = isOpen ? "none" : "flex";
-    });
-  }
-
-  // footer year
+document.addEventListener("DOMContentLoaded", function() {
+  // Set current year in footer
   document.getElementById("year").textContent = new Date().getFullYear();
   
   // Create QR code
@@ -25,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function(){
     correctLevel: QRCode.CorrectLevel.H
   });
   
-  // Set up email copy functionality
+  // Email copy functionality
   const emailLink = document.getElementById('emailLink');
   const copyNotification = document.getElementById('copyNotification');
   
@@ -33,20 +21,15 @@ document.addEventListener("DOMContentLoaded", function(){
     emailLink.addEventListener('click', function(e) {
       e.preventDefault();
       
-      // Copy email to clipboard
       navigator.clipboard.writeText('contact.saltpepperduo@gmail.com')
         .then(() => {
-          // Show notification
           copyNotification.classList.add('show');
-          
-          // Hide notification after 2 seconds
           setTimeout(() => {
             copyNotification.classList.remove('show');
           }, 2000);
         })
         .catch(err => {
           console.error('Failed to copy: ', err);
-          // Fallback: Open mail client
           window.location.href = 'mailto:contact.saltpepperduo@gmail.com';
         });
     });
@@ -74,7 +57,7 @@ function parseVideoData(text) {
       const parts = trimmedLine.split(',');
       if (parts.length >= 2) {
         const url = parts[0].trim();
-        const title = parts.slice(1).join(',').trim(); // In case title contains commas
+        const title = parts.slice(1).join(',').trim();
         const id = extractYouTubeId(url);
         
         if (id) {
@@ -92,7 +75,7 @@ function renderVideos(videos) {
   const videoContainer = document.getElementById('videoContainer');
   if (!videoContainer) return;
   
-  videoContainer.innerHTML = ''; // Clear existing content
+  videoContainer.innerHTML = '';
   
   if (videos.length === 0) {
     videoContainer.innerHTML = '<p>No videos available</p>';
