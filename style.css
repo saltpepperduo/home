@@ -1,171 +1,67 @@
-/* Plain & simple — white text on a full background image */
-:root {
-  --overlay: rgba(0,0,0,0.45);
-  --accent: rgba(255,255,255,0.95);
-  --max-width: 1000px;
-  --gap: 1rem;
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Keep page full-bleed background image */
 html, body {
   height: 100%;
-  margin: 0;
-  overflow-x: hidden;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  color: white;
 }
 
 body {
-  color: white;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-/* Section styling - removed min-height to allow natural image height */
+/* Section styling */
 .section {
   width: 100%;
   position: relative;
-  color: white;
-  text-align: center;
-  overflow: hidden;
 }
 
-.bg-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: 100% 100%; /* Fill both width and height exactly */
-  background-position: center center;
-  background-repeat: no-repeat;
-  z-index: -2;
-  background-color: #222; /* Fallback color */
+/* First section with background image */
+.section-1 {
+  height: 100vh;
+  background: #222 url('../assets/background-desktop.jpg') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 15vh;
 }
 
-.bg-overlay::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-}
-
-/* First section with original background */
-.section-1 .bg-overlay {
-  background-image: url("assets/background-desktop.jpg");
-}
-
-.section-1 .bg-overlay::after {
-  background: rgba(0,0,0,0.3);
-}
-
-/* Text content for first section - centered at top half */
 .text-content {
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  max-width: 800px;
-  width: 80%;
   text-align: center;
-  padding: 2rem;
+  max-width: 800px;
+  padding: 0 2rem;
 }
 
 .title {
-  margin: 0 0 1rem 0;
-  font-size: clamp(2.5rem, 7vw, 5rem);
-  letter-spacing: -0.02em;
+  font-size: 3.5rem;
   font-weight: 700;
-  color: white;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.5px;
 }
 
 .description {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   line-height: 1.6;
-  margin-bottom: 2rem;
-  color: white;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
-/* Second section with new background */
-.section-2 .bg-overlay {
-  background-image: url("assets/background-new.jpg");
-  background-color: #222; /* Fallback color if image doesn't load */
-}
-
-.section-2 .bg-overlay::after {
-  background: rgba(0,0,0,0.4);
-}
-
-/* Contact panel for second section - top right corner */
-.contact-panel {
-  position: absolute;
-  top: 10%;
-  right: 5%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1.5rem;
-}
-
-/* Social links */
-.social-links {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.social-link {
-  color: white;
-  text-decoration: none;
-  font-size: 1.1rem;
-  transition: all 0.3s;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.7rem 1.2rem;
-  border-radius: 30px;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-}
-
-.social-link:hover {
-  background: rgba(255,255,255,0.2);
-}
-
-.social-icon {
-  font-size: 1.3rem;
-}
-
-/* Copy notification */
-.copy-notification {
-  position: absolute;
-  bottom: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 8px 16px;
-  border-radius: 4px;
-  opacity: 0;
-  transition: opacity 0.3s;
-  pointer-events: none;
-}
-
-.copy-notification.show {
-  opacity: 1;
-}
-
-/* YouTube section with grey background */
+/* YouTube videos section */
 .youtube-section {
-  padding: 4rem 2rem;
-  background: #f0f0f0; /* Light grey background */
+  padding: 5rem 2rem;
+  background: #f0f0f0;
   text-align: center;
 }
 
 .youtube-title {
   font-size: 2.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   color: #333;
 }
 
@@ -208,7 +104,23 @@ body {
   font-style: italic;
 }
 
-/* QR Code */
+/* Second section with background image */
+.section-2 {
+  height: 100vh;
+  background: #222 url('../assets/background-new.jpg') no-repeat center center;
+  background-size: cover;
+  position: relative;
+}
+
+.contact-panel {
+  position: absolute;
+  top: 15%;
+  left: 10%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
 .qr-section {
   text-align: center;
 }
@@ -216,7 +128,7 @@ body {
 .qr-section p {
   margin-bottom: 1rem;
   font-weight: 600;
-  color: white;
+  font-size: 1.2rem;
 }
 
 #qrcode {
@@ -226,8 +138,55 @@ body {
   border-radius: 8px;
 }
 
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.social-link {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: background 0.3s;
+}
+
+.social-link:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.social-icon {
+  font-size: 1.4rem;
+}
+
+.copy-notification {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.copy-notification.show {
+  opacity: 1;
+}
+
+/* Footer */
 .foot {
-  padding: 1rem;
+  padding: 2rem;
   text-align: center;
   background: #222;
   color: white;
@@ -235,40 +194,17 @@ body {
 
 /* Mobile responsiveness */
 @media (max-width: 800px) {
-  .section {
-    height: auto;
-    min-height: 100vh; /* Ensure sections still fill screen height on mobile */
+  .section-1 {
+    background-image: url('../assets/background-mobile.jpg');
+    padding-top: 10vh;
   }
   
-  .section-1 .bg-overlay {
-    background-image: url("assets/background-mobile.jpg");
+  .title {
+    font-size: 2.5rem;
   }
   
-  .section-2 .bg-overlay {
-    background-image: url("assets/background-new.jpg");
-    background-position: center center;
-  }
-  
-  .text-content {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-    padding: 4rem 1.5rem 2rem;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .contact-panel {
-    position: relative;
-    top: auto;
-    right: auto;
-    margin: 2rem auto;
-    width: 80%;
-    max-width: 300px;
-    background: rgba(0,0,0,0.6); /* Add background for better readability on mobile */
-    border-radius: 12px;
-    padding: 2rem;
+  .description {
+    font-size: 1.2rem;
   }
   
   .video-container {
@@ -280,8 +216,15 @@ body {
     width: 100%;
   }
   
-  /* On mobile, use cover to ensure image fills screen */
-  .bg-overlay {
-    background-size: cover;
+  .contact-panel {
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+    width: 90%;
+    max-width: 300px;
+  }
+  
+  .social-link {
+    justify-content: center;
   }
 }
