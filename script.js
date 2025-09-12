@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-  // ----------------- QR KODE -----------------
+  // ----------------- QR CODE -----------------
   new QRCode(document.getElementById("qrcode"), {
     text: window.location.href,
     width: 140,
@@ -7,6 +7,22 @@ document.addEventListener("DOMContentLoaded", function() {
     colorDark: "#000000",
     colorLight: "#ffffff",
     correctLevel: QRCode.CorrectLevel.H
+  });
+
+  // ----------------- COPY EMAIL BUTTON -----------------
+  const copyBtn = document.getElementById("copyEmail");
+  copyBtn.addEventListener("click", () => {
+    navigator.clipboard.writeText("contact.saltpepperduo@gmail.com").then(() => {
+      const originalText = copyBtn.textContent;
+      copyBtn.textContent = "Copied!";
+      copyBtn.disabled = true;
+      copyBtn.style.background = "rgba(0,255,0,0.3)";
+      setTimeout(() => {
+        copyBtn.textContent = originalText;
+        copyBtn.disabled = false;
+        copyBtn.style.background = "rgba(255,255,255,0.15)";
+      }, 1500);
+    });
   });
 
   // ----------------- SCROLL PILER -----------------
@@ -17,42 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
-  // ----------------- COPY EMAIL MED TOAST UNDER KNAPP -----------------
-  const copyBtn = document.getElementById("copyEmail");
-  const toast = document.getElementById("toast");
-  copyBtn.addEventListener("click", () => {
-    navigator.clipboard.writeText("contact.saltpepperduo@gmail.com").then(() => {
-      // Plasser toast i samme panel som knappen
-      copyBtn.parentElement.appendChild(toast);
-      toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 2000);
-    });
-  });
-
-  // ----------------- YOUTUBE VIDEOS -----------------
-  fetch("./youtube.txt")
-    .then(resp => resp.text())
-    .then(data => {
-      const container = document.getElementById("youtube-videos");
-      const lines = data.split("\n").map(l => l.trim()).filter(l => l.length > 0);
-      lines.forEach(line => {
-        const parts = line.split(",");
-        if (parts.length >= 2) {
-          const title = parts[0].trim();
-          const videoId = parts[1].trim();
-          const h3 = document.createElement("h3");
-          h3.textContent = title;
-          const iframe = document.createElement("iframe");
-          iframe.src = `https://www.youtube.com/embed/${videoId}`;
-          iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-          iframe.allowFullscreen = true;
-          container.appendChild(h3);
-          container.appendChild(iframe);
-        }
-      });
-    });
-
-  // ----------------- SCROLL MED PILTASTER -----------------
+  // ----------------- SCROLL WITH ARROW KEYS -----------------
   document.addEventListener("keydown", function(e) {
     const sections = document.querySelectorAll(".section");
     const currentScroll = window.scrollY;
@@ -68,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 
-  // ----------------- YOUTUBE BAKGRUNNSFILTER -----------------
+  // ----------------- YOUTUBE OVERLAY -----------------
   const youtubeSection = document.querySelector(".section-3");
   if (youtubeSection) {
     const overlay = document.createElement("div");
@@ -80,5 +61,8 @@ document.addEventListener("DOMContentLoaded", function() {
     overlay.style.backgroundColor = "rgba(0,0,0,0.5)";
     overlay.style.zIndex = "0";
     youtubeSection.appendChild(overlay);
+
+    const container = youtubeSection.querySelector(".youtube-videos");
+    if (container) container.style.position = "relative";
   }
 });
