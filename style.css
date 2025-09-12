@@ -26,12 +26,12 @@ html, body {
   text-align:center;
 }
 
-/* BAKGRUNNER */
+/* BACKGROUNDS */
 .section-1{ background:url('background-desktop.jpg') no-repeat center center/cover; }
 .section-2{ background:url('background-new.jpg') no-repeat center center/cover; }
 .section-3{ background:url('youtube.jpg') no-repeat center center/cover; flex-direction:column; padding:2rem; overflow-y:auto; }
 
-/* Første seksjon */
+/* FIRST SECTION */
 .hero-content{
   position:absolute;
   top:0;
@@ -39,7 +39,7 @@ html, body {
   transform:translateX(-50%);
   max-width:800px;
   text-align:center;
-  height:40%; /* øverste 2/5 */
+  height:40%;
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -62,7 +62,7 @@ html, body {
   text-shadow:1px 1px 4px rgba(0,0,0,0.5);
 }
 
-/* Scroll-piler og tekst */
+/* Scroll-piler */
 .down-arrow{
   position:absolute;
   bottom:20px;
@@ -86,7 +86,7 @@ html, body {
   text-shadow:1px 1px 3px rgba(0,0,0,0.6);
 }
 
-/* Andre seksjon */
+/* SECOND SECTION TOP-RIGHT PANEL */
 .top-right-panel{
   position:absolute;
   top:20px;
@@ -124,22 +124,11 @@ html, body {
   background:rgba(255,255,255,0.3);
   transform:translateY(-2px);
 }
-
-/* Toast under email button */
-.toast{
-  position:relative; /* vises under knappen */
-  margin-top:6px;
-  display:inline-block;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity 0.3s ease, transform 0.3s ease;
-}
-.toast.show{
-  opacity:1;
-  transform:translateY(-4px);
+.btn:active{
+  transform:scale(0.95);
 }
 
-/* YouTube videoer */
+/* THIRD SECTION YOUTUBE VIDEOS */
 .youtube-videos{
   display:flex;
   flex-direction:column;
