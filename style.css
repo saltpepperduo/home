@@ -1,35 +1,29 @@
-/* GLOBAL */
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
   font-family: Arial, sans-serif;
   color: white;
   overflow-x: hidden;
 }
 
-@media (min-width:768px){
-  .container{
-    height:100vh;
-    overflow-y:scroll;
-    scroll-snap-type:y mandatory;
-  }
-  .section{scroll-snap-align:start;}
-}
+/* SCROLL SNAP for magnetic effect */
+body { scroll-behavior: smooth; }
+.section { scroll-snap-align: start; }
+html { scroll-snap-type: y mandatory; }
 
 .section{
-  height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
   position:relative;
   text-align:center;
+  width:100%;
 }
 
-/* BACKGROUNDS */
-.section-1{ background:url('background-desktop.jpg') no-repeat center center/cover; }
-.section-2{ background:url('background-new.jpg') no-repeat center center/cover; }
-.section-3{ background:url('youtube.jpg') no-repeat center center/cover; flex-direction:column; padding:2rem; overflow-y:auto; }
+/* Backgrounds */
+.section-1{ background:url('background-desktop.jpg') no-repeat center center/cover; height:100vh; }
+.section-2{ background:url('background-new.jpg') no-repeat center center/cover; height:100vh; }
+.section-3{ background:url('youtube.jpg') no-repeat center center/cover; flex-direction:column; padding:2rem; overflow-x:hidden; }
 
 /* FIRST SECTION */
 .hero-content{
@@ -62,7 +56,7 @@ html, body {
   text-shadow:1px 1px 4px rgba(0,0,0,0.5);
 }
 
-/* Scroll-piler */
+/* Scroll arrow */
 .down-arrow{
   position:absolute;
   bottom:20px;
@@ -82,11 +76,10 @@ html, body {
   transform:translateX(-50%);
   font-size:1rem;
   opacity:0.7;
-  color:white;
   text-shadow:1px 1px 3px rgba(0,0,0,0.6);
 }
 
-/* SECOND SECTION TOP-RIGHT PANEL */
+/* SECOND SECTION */
 .top-right-panel{
   position:absolute;
   top:20px;
@@ -124,11 +117,16 @@ html, body {
   background:rgba(255,255,255,0.3);
   transform:translateY(-2px);
 }
-.btn:active{
-  transform:scale(0.95);
+.toast{
+  opacity:0;
+  transition:opacity 0.3s;
+  text-align:center;
+}
+.toast.show{
+  opacity:1;
 }
 
-/* THIRD SECTION YOUTUBE VIDEOS */
+/* YOUTUBE SECTION */
 .youtube-videos{
   display:flex;
   flex-direction:column;
@@ -151,4 +149,16 @@ html, body {
   margin-bottom:6px;
   font-size:1.2rem;
   text-align:center;
+}
+
+/* Overlay */
+.section-3::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color: rgba(0,0,0,0.5);
+  z-index:0;
 }
