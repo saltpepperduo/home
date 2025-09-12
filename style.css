@@ -138,22 +138,19 @@ html, body {
 }
 
 /* Toast under email button */
-.toast{
-  position:absolute;
-  background:rgba(0,0,0,0.75);
-  color:white;
-  padding:0.4rem 0.8rem;
-  border-radius:8px;
-  font-size:0.9rem;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity 0.3s ease, transform 0.3s ease;
-  z-index:10;
+.toast {
+  position: relative; /* i flex-kontekst */
+  margin-top: 6px;
+  display: inline-block;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
-.toast.show{
-  opacity:1;
-  transform:translateY(-8px);
+.toast.show {
+  opacity: 1;
+  transform: translateY(-4px);
 }
+
 
 /* YouTube videoer */
 .youtube-videos{
