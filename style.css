@@ -1,86 +1,181 @@
-/* Reset */
-* {
+/* GLOBAL */
+html, body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-body {
+  height: 100%;
   font-family: Arial, sans-serif;
   color: white;
-  background: black;
+  overflow-x: hidden;
 }
 
-/* Top image */
-.background-top {
-  width: 100%;
-  background: url("assets/background-top.jpg") no-repeat center center;
-  background-size: cover;
-  min-height: 100vh;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
+@media (min-width:768px){
+  .container{
+    height:100vh;
+    overflow-y:scroll;
+    scroll-snap-type:y mandatory;
+  }
+  .section{scroll-snap-align:start;}
 }
 
-.overlay {
-  margin-top: 10%; /* ca. øverste tredjedel */
-  text-align: center;
-  padding: 2rem;
+.section{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+  text-align:center;
 }
 
-.overlay h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+/* BAKGRUNNER */
+.section-1{ background:url('background-desktop.jpg') no-repeat center center/cover; }
+.section-2{ background:url('background-new.jpg') no-repeat center center/cover; }
+.section-3{ background:url('youtube.jpg') no-repeat center center/cover; flex-direction:column; padding:2rem; overflow-y:auto; }
+
+/* Første seksjon */
+.hero-content{
+  position:absolute;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+  max-width:800px;
+  text-align:center;
+  height:40%; /* øverste 2/5 */
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
 }
 
-.overlay p {
-  max-width: 800px;
-  margin: 0 auto;
-  font-size: 1.2rem;
-  line-height: 1.6;
+.foot {
+  display: none;
 }
 
-/* YouTube section */
-.videos {
-  padding: 2rem;
-  text-align: center;
-  background: black;
+.title{
+  font-size:6rem;
+  font-weight:bold;
+  text-transform:uppercase;
+  margin-bottom:1rem;
+  text-shadow:2px 2px 6px rgba(0,0,0,0.5);
+  opacity: 0;
+  animation: fadeInTitle 2s forwards;
+}
+@keyframes fadeInTitle{
+  to {opacity:1;}
+}
+.duo-text{
+  font-size:1.2rem;
+  line-height:1.6;
+  text-shadow:1px 1px 4px rgba(0,0,0,0.5);
 }
 
-.videos h2 {
-  margin: 1rem 0;
+/* Scroll-piler og tekst */
+.down-arrow{
+  position:absolute;
+  bottom:20px;
+  font-size:2rem;
+  opacity:0.6;
+  cursor:pointer;
+  transition:opacity 0.2s, transform 0.2s;
+}
+.down-arrow:hover{
+  opacity:1;
+  transform:translateY(2px);
+}
+.scroll-text{
+  position:absolute;
+  bottom:60px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:1rem;
+  opacity:0.7;
+  color:white;
+  text-shadow:1px 1px 3px rgba(0,0,0,0.6);
 }
 
-.videos iframe {
-  width: 90%;
-  max-width: 800px;
-  height: 450px;
-  margin-bottom: 2rem;
-  border: none;
+/* Andre seksjon */
+.top-right-panel{
+  position:absolute;
+  top:20px;
+  right:20px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-direction:column;
 }
-
-/* Bottom image */
-.background-bottom {
-  width: 100%;
-  background: url("assets/background-bottom.jpg") no-repeat center center;
-  background-size: cover;
-  min-height: 100vh;
+.qr-box{
+  background:white;
+  padding:8px;
+  border-radius:8px;
+}
+.panel-buttons{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.btn{
+  background:rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.4);
+  color:white;
+  padding:10px 16px;
+  border-radius:8px;
+  text-decoration:none;
+  cursor:pointer;
+  font-size:1rem;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  transition: background 0.3s, transform 0.2s;
+}
+.btn:hover{
+  background:rgba(255,255,255,0.3);
+  transform:translateY(-2px);
 }
 
 /* Footer */
-footer {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  padding: 1.5rem;
-  background: black;
+.foot{
+  padding:1rem;
+  text-align:center;
+  background:rgba(0,0,0,0.6);
 }
 
-footer svg {
-  cursor: pointer;
+/* Toast under email button */
+.toast{
+  position:absolute;
+  background:rgba(0,0,0,0.75);
+  color:white;
+  padding:0.4rem 0.8rem;
+  border-radius:8px;
+  font-size:0.9rem;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.3s ease, transform 0.3s ease;
+  z-index:10;
+}
+.toast.show{
+  opacity:1;
+  transform:translateY(-8px);
 }
 
-#qrCode {
-  width: 60px;
-  height: 60px;
+/* YouTube videoer */
+.youtube-videos{
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+  align-items:center;
+  max-width:900px;
+  width:100%;
+  position:relative;
+  z-index:1;
+}
+.youtube-videos iframe{
+  width:100%;
+  max-width:720px;
+  height:405px;
+  border:none;
+  border-radius:12px;
+}
+.youtube-videos h3{
+  margin:0;
+  margin-bottom:6px;
+  font-size:1.2rem;
+  text-align:center;
 }
