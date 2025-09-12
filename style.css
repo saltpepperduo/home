@@ -44,11 +44,6 @@ html, body {
   flex-direction:column;
   justify-content:center;
 }
-
-.foot {
-  display: none;
-}
-
 .title{
   font-size:6rem;
   font-weight:bold;
@@ -130,27 +125,19 @@ html, body {
   transform:translateY(-2px);
 }
 
-/* Footer */
-.foot{
-  padding:1rem;
-  text-align:center;
-  background:rgba(0,0,0,0.6);
-}
-
 /* Toast under email button */
-.toast {
-  position: relative; /* i flex-kontekst */
-  margin-top: 6px;
-  display: inline-block;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+.toast{
+  position:relative; /* vises under knappen */
+  margin-top:6px;
+  display:inline-block;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.3s ease, transform 0.3s ease;
 }
-.toast.show {
-  opacity: 1;
-  transform: translateY(-4px);
+.toast.show{
+  opacity:1;
+  transform:translateY(-4px);
 }
-
 
 /* YouTube videoer */
 .youtube-videos{
