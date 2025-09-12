@@ -9,9 +9,6 @@ document.addEventListener("DOMContentLoaded", function() {
     correctLevel: QRCode.CorrectLevel.H
   });
 
-  // ----------------- FOOTER YEAR -----------------
-  document.getElementById("year").textContent = new Date().getFullYear();
-
   // ----------------- SCROLL PILER -----------------
   document.querySelectorAll(".down-arrow").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -25,16 +22,15 @@ document.addEventListener("DOMContentLoaded", function() {
   const toast = document.getElementById("toast");
   copyBtn.addEventListener("click", () => {
     navigator.clipboard.writeText("contact.saltpepperduo@gmail.com").then(() => {
-      const rect = copyBtn.getBoundingClientRect();
-      toast.style.top = (rect.bottom + window.scrollY + 6) + "px";
-      toast.style.left = (rect.left + rect.width/2 - toast.offsetWidth/2 + window.scrollX) + "px";
+      // Plasser toast i samme panel som knappen
+      copyBtn.parentElement.appendChild(toast);
       toast.classList.add("show");
       setTimeout(() => toast.classList.remove("show"), 2000);
     });
   });
 
   // ----------------- YOUTUBE VIDEOS -----------------
-  fetch("youtube.txt")
+  fetch("./youtube.txt")
     .then(resp => resp.text())
     .then(data => {
       const container = document.getElementById("youtube-videos");
@@ -43,8 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const parts = line.split(",");
         if (parts.length >= 2) {
           const title = parts[0].trim();
-          const url = parts[1].trim();
-          const videoId = url.includes("v=") ? url.split("v=")[1].split("&")[0] : url;
+          const videoId = parts[1].trim();
           const h3 = document.createElement("h3");
           h3.textContent = title;
           const iframe = document.createElement("iframe");
